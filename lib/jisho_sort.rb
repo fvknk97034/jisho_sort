@@ -1,5 +1,4 @@
-class JishoSort
-  def self.sort; end
-end
+require 'jisho_sort/string'
 
-require 'jisho_sort/tokenizer'
+module JishoSort
+end
