@@ -2,5 +2,5 @@ source 'http://rubygems.org'
 
 gem 'rspec'
 
-gem 'ruby-lsp'
 gem 'rubocop'
+gem 'ruby-lsp'
