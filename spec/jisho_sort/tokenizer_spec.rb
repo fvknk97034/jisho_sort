@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe JishoSort::Tokenizer do
+describe JishoSort::Tokenizable do
   context 'when a valid argument is passed' do
     context 'when it does not contain alphabets or symbols' do
       let(:input_text) { '情報の扱い方と価値' }

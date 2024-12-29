@@ -1,5 +1,5 @@
-require 'jisho_sort/tokenizer'
+require 'jisho_sort/tokenizable'
 
 class String
-  include JishoSort::Tokenizer
+  include JishoSort::Tokenizable
 end

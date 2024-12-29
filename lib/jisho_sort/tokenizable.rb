@@ -1,7 +1,7 @@
 require 'natto'
 
 module JishoSort
-  module Tokenizer
+  module Tokenizable
     def furigana
       tokenize
     end
