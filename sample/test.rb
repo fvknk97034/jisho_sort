@@ -3,9 +3,9 @@ require 'jisho_sort'
 
 # rubocop:disable Style/WordArray
 array = [
+  'ゆく川の流れは絶えずして、しかももとの水にあらず',
   'メロスは激怒した',
-  '国境の長いトンネルを抜けると雪国であった',
-  'つれづれなるままに'
+  '国境の長いトンネルを抜けると雪国であった'
 ]
 # rubocop:enable Style/WordArray
 
