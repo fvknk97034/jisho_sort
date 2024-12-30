@@ -2,6 +2,9 @@ require 'natto'
 
 module JishoSort
   module Tokenizable
+    NATTO_KATAKANA_TYPE = 7
+    NATTO_FURIGANA_INDEX = 7
+
     def furigana
       tokenize
     end
@@ -15,13 +18,17 @@ module JishoSort
     def call_natto_parser
       strings = separate_ascii_string_from_others
 
-      nm = Natto::MeCab.new('-F%f[7]')
+      nm = Natto::MeCab.new
       memo = []
       strings.each do |s|
         next memo << s if s.ascii_only?
 
         nm.parse(s) do |n|
-          memo << n.feature unless n.is_eos?
+          next memo << n.surface if n.char_type == NATTO_KATAKANA_TYPE
+
+          n_furigana = n.feature.split(',')[NATTO_FURIGANA_INDEX]
+
+          memo << n_furigana unless n.is_eos?
         end
       end
 
