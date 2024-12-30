@@ -24,11 +24,12 @@ module JishoSort
         next memo << s if s.ascii_only?
 
         nm.parse(s) do |n|
+          next if n.is_eos?
           next memo << n.surface if n.char_type == NATTO_KATAKANA_TYPE
 
           n_furigana = n.feature.split(',')[NATTO_FURIGANA_INDEX]
 
-          memo << n_furigana unless n.is_eos?
+          memo << n_furigana
         end
       end
 
