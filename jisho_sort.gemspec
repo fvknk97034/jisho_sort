@@ -8,4 +8,8 @@ Gem::Specification.new do |s|
   s.email             = 'hoge@example.com'
   s.homepage          = 'https://github.com/fvknk'
   s.description       = 'Sort Japanese characters, including kanji, in dictionary order.'
+
+  s.add_dependency 'ffi', '>= 1.9.0'
+  s.add_dependency 'natto'
+  s.metadata['rubygems_mfa_required'] = 'true'
 end
