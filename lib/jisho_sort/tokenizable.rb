@@ -18,6 +18,8 @@ module JishoSort
     def call_natto_parser
       strings = separate_ascii_string_from_others
 
+      # Extract the elements of furigana within this gem.
+      # When specifying a format in the argument of Natto::MeCab.new, the error `MECAB_NBEST request type is not set (Natto::MeCabError)` occurs.
       nm = Natto::MeCab.new
       memo = []
       strings.each do |s|
