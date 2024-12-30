@@ -21,3 +21,6 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
+
+Style/FrozenStringLiteralComment:
+  Enable :false
