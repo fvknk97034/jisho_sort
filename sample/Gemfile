@@ -1,0 +1,6 @@
+source 'http://rubygems.org'
+
+gem 'jisho_sort', path: '../'
+
+gem 'ffi', '>= 1.9.0'
+gem 'natto'
