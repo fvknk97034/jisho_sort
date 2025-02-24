@@ -10,4 +10,4 @@ array = [
 # rubocop:enable Style/WordArray
 
 p array
-p array.sort
+p array.jisho_sort
