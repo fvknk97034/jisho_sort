@@ -28,7 +28,7 @@ gem install jisho_sort
 
 ## Usage
 
-Here's a basic example of how to use JishoSort:
+Here's a basic example of how to use jisho_sort:
 
 ```ruby
 require 'jisho_sort'
@@ -44,7 +44,7 @@ When you run this code, you will get the following result:
 
 ```sh
 $ ruby sample.rb
-=> ["ゆく川の流れは絶えずして、しかももとの水にあらず", "メロスは激怒した", "国境の長いトンネルを抜けると雪国であった"]
+=> ["国境の長いトンネルを抜けると雪国であった", "メロスは激怒した", "ゆく川の流れは絶えずして、しかももとの水にあらず"]
 ```
 
 
