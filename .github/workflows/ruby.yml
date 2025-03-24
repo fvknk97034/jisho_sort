@@ -1,0 +1,40 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ "**" ]
+    types: [created, edited]
+    paths:
+      - 'lib/**'
+      - 'spec/**'
+  pull_request:
+    branches: [ "**" ]
+    types: [created, edited]
+    paths:
+      - 'lib/**'
+      - 'spec/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.4']
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+      with:
+        ruby-version: 3.4
+        bundler-cache: true
+    - name: Rubocop
+      run: rubocop -f github
+    - name: Install MeCab
+      run: apt-get update -qq && apt-get install -y mecab mecab-ipadic libmecab-dev
+    - name: Run tests
+      run: bundle exec rspec
