@@ -26,11 +26,19 @@ describe JishoSort::Tokenizable do
       end
     end
 
-    context 'when it does not contain hiragana, katakana and kanji' do
+    context 'when it does contain only alphabet ' do
       let(:input_text) { 'Hello, World!' }
 
       it 'is expected that the string will be returned unconverted.' do
         expect(input_text.furigana).to eq 'Hello, World!'
+      end
+    end
+
+    context 'when it does contain only number ' do
+      let(:input_text) { '12345' }
+
+      it 'is expected that the string will be returned unconverted.' do
+        expect(input_text.furigana).to eq '12345'
       end
     end
 
