@@ -54,4 +54,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 This project uses the following products:
 
 - [natto](https://github.com/buruzaemon/natto): BSD 2-Clause License ([LICENSE file](https://github.com/buruzaemon/natto/blob/master/LICENSE))
-- [ffi](https://github.com/ffi/ffi): BSD ([LICENSE file](https://github.com/ffi/ffi/blob/master/LICENSE))
+- [ffi](https://github.com/ffi/ffi): BSD 3-Clause License ([LICENSE file](https://github.com/ffi/ffi/blob/master/LICENSE))
