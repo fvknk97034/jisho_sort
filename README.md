@@ -1,7 +1,7 @@
 # jisho_sort
 
 `jisho_sort` is a Ruby sorting library based on MeCab.
-It provides functionality to sort Japanese strings containing a mix of Chinese and Japanese Letters in dictionary order.
+It provides functionality to sort Japanese strings. These strings may contain a mix of Chinese and Japanese letters, sorted in dictionary order.
 
 ## Installation
 
@@ -47,10 +47,11 @@ $ ruby sample.rb
 => ["国境の長いトンネルを抜けると雪国であった", "メロスは激怒した", "ゆく川の流れは絶えずして、しかももとの水にあらず"]
 ```
 
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-This project uses the [natto](https://github.com/buruzaemon/natto) Ruby library, which is licensed under the BSD 2-Clause License.  
-Please refer to natto's [LICENSE file](https://github.com/buruzaemon/natto/blob/master/LICENSE) for details.
+This project uses the following products:
+
+- [natto](https://github.com/buruzaemon/natto): BSD 2-Clause License ([LICENSE file](https://github.com/buruzaemon/natto/blob/master/LICENSE))
+- [ffi](https://github.com/ffi/ffi): BSD ([LICENSE file](https://github.com/ffi/ffi/blob/master/LICENSE))
