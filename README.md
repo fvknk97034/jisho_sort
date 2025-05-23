@@ -51,3 +51,6 @@ $ ruby sample.rb
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+This project uses the [natto](https://github.com/buruzaemon/natto) Ruby library, which is licensed under the BSD 2-Clause License.  
+Please refer to natto's [LICENSE file](https://github.com/buruzaemon/natto/blob/master/LICENSE) for details.
