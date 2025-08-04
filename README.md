@@ -38,6 +38,7 @@ array = [
   'メロスは激怒した',
   '国境の長いトンネルを抜けると雪国であった'
 ]
+p array.jisho_sort
 ```
 
 When you run this code, you will get the following result:
