@@ -20,7 +20,7 @@ module JishoSort
 
       # Extract the elements of furigana within this gem.
       # When specifying a format in the argument of Natto::MeCab.new, the error `MECAB_NBEST request type is not set (Natto::MeCabError)` occurs.
-      nm = Natto::MeCab.new
+      nm = Natto::MeCab.new('-Oyomi')
       memo = []
       strings.each do |s|
         next memo << s if s.ascii_only?
@@ -29,7 +29,7 @@ module JishoSort
           next if n.is_eos?
           next memo << n.surface if n.char_type == NATTO_KATAKANA_TYPE
 
-          n_furigana = n.feature.split(',')[NATTO_FURIGANA_INDEX]
+          n_furigana = n.feature
 
           memo << n_furigana
         end
