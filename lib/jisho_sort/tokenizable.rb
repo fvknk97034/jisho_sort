@@ -3,7 +3,6 @@ require 'natto'
 module JishoSort
   module Tokenizable
     NATTO_KATAKANA_TYPE = 7
-    NATTO_FURIGANA_INDEX = 7
 
     def furigana
       tokenize
@@ -29,9 +28,7 @@ module JishoSort
           next if n.is_eos?
           next memo << n.surface if n.char_type == NATTO_KATAKANA_TYPE
 
-          n_furigana = n.feature
-
-          memo << n_furigana
+          memo << n.feature
         end
       end
 
