@@ -16,10 +16,10 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           ruby-version: '3.4'
-      - uses: rubygems/release-gem@v1
+      - uses: rubygems/release-gem@e9a6361a0b14562539327c2a02373edc56dd3169
