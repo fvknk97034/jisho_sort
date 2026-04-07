@@ -3,10 +3,28 @@ require 'spec_helper'
 describe JishoSort::Tokenizable do
   context 'when a valid argument is passed' do
     context 'when it does not contain alphabets or symbols' do
-      let(:input_text) { '情報の扱い方と価値' }
+      context 'when it is common reading' do
+        let(:input_text) { '情報の扱い方と価値' }
 
-      it 'is expected to return the reading of the string' do
-        expect(input_text.furigana).to eq 'ジョウホウノアツカイカタトカチ'
+        it 'is expected to return the reading of the string' do
+          expect(input_text.furigana).to eq 'ジョウホウノアツカイカタトカチ'
+        end
+      end
+
+      context 'when it is uncommon reading' do
+        let(:input_text) { '放出駅' }
+
+        context 'when it use default dictionary' do
+          it 'is expected to return the odd reading' do
+            expect(input_text.furigana).to eq 'ホウシュツエキ'
+          end
+        end
+
+        context 'when it use special dictionary' do
+          it 'is expected to return the odd reading' do
+            expect(input_text.furigana(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')).to eq 'ハナテンエキ'
+          end
+        end
       end
     end
 

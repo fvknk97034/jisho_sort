@@ -4,22 +4,22 @@ module JishoSort
   module Tokenizable
     NATTO_KATAKANA_TYPE = 7
 
-    def furigana
-      tokenize
+    def furigana(options = {})
+      tokenize(options)
     end
 
     private
 
-    def tokenize
-      call_natto_parser
+    def tokenize(options = {})
+      call_natto_parser(options)
     end
 
-    def call_natto_parser
+    def call_natto_parser(options = {})
       strings = separate_ascii_string_from_others
 
       # Extract the elements of furigana within this gem.
       # When specifying a format in the argument of Natto::MeCab.new, the error `MECAB_NBEST request type is not set (Natto::MeCabError)` occurs.
-      nm = Natto::MeCab.new(output_format_type: :yomi)
+      nm = Natto::MeCab.new(options.merge({ output_format_type: :yomi }))
       memo = []
       strings.each do |s|
         next memo << s if s.ascii_only?
