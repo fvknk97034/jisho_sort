@@ -24,11 +24,11 @@ describe JishoSort::Sortable do
       let(:text2) { '放出駅' }
 
       it 'is expected to return number that has been jisho_sort_by by reading' do
-        expect(text1.compare_by_furigana(text2, dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')).to eq 1
+        expect(text1.compare_by_furigana(text2, dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq 1
       end
 
       it 'is expected to return number that has been jisho_sort_by by reading' do
-        expect(text2.compare_by_furigana(text1, dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')).to eq (-1)
+        expect(text2.compare_by_furigana(text1, dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq (-1)
       end
     end
 

@@ -41,7 +41,7 @@ describe JishoSort::Sortable do
         end
 
         it 'is expected to return an array that has been jisho_sort by reading' do
-          expect(inputs.jisho_sort(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')).to eq [
+          expect(inputs.jisho_sort(dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq [
               '博多駅',
               '放出駅',
               '福井駅'
@@ -50,7 +50,7 @@ describe JishoSort::Sortable do
         #  rubocop:enable Style/WordArray
 
         it 'is expected to be non-destructive' do
-          inputs.jisho_sort(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')
+          inputs.jisho_sort(dicdir: ENV.fetch('DICTIONARY_DIR'))
           expect(inputs).to eq inputs
         end
       end
@@ -113,7 +113,7 @@ describe JishoSort::Sortable do
         end
 
         it 'is expected to return an array that has been jisho_sort by reading' do
-          expect(inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/') }).to eq [
+          expect(inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: ENV.fetch('DICTIONARY_DIR')) }).to eq [
               '福井駅',
               '放出駅',
               '博多駅'
@@ -122,7 +122,7 @@ describe JishoSort::Sortable do
         #  rubocop:enable Style/WordArray
 
         it 'is expected to be non-destructive' do
-          inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/') }
+          inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: ENV.fetch('DICTIONARY_DIR')) }
           expect(inputs).to eq inputs
         end
       end
@@ -185,7 +185,7 @@ describe JishoSort::Sortable do
         end
 
         it 'is expected to return an array that has been jisho_sort_by by reading' do
-          expect(inputs.jisho_sort_by(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/') { |i| i[:name] }).to eq [
+          expect(inputs.jisho_sort_by(dicdir: ENV.fetch('DICTIONARY_DIR')) { |i| i[:name] }).to eq [
             { id: 2, name: '博多駅' },
             { id: 3, name: '放出駅' },
             { id: 1, name: '福井駅' }
@@ -194,7 +194,7 @@ describe JishoSort::Sortable do
         #  rubocop:enable Style/WordArray
 
         it 'is expected to be non-destructive' do
-          inputs.jisho_sort_by(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/') { |i| i[:name] }
+          inputs.jisho_sort_by(dicdir: ENV.fetch('DICTIONARY_DIR')) { |i| i[:name] }
           expect(inputs).to eq inputs
         end
       end

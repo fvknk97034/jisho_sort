@@ -22,7 +22,7 @@ describe JishoSort::Tokenizable do
 
         context 'when it use special dictionary' do
           it 'is expected to return the odd reading' do
-            expect(input_text.furigana(dicdir: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/')).to eq 'ハナテンエキ'
+            expect(input_text.furigana(dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq 'ハナテンエキ'
           end
         end
       end
