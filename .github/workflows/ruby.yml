@@ -29,6 +29,15 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
     - name: Install MeCab
-      run: sudo apt-get update -qq && sudo apt-get install -y mecab mecab-ipadic-utf8 libmecab-dev
+      run: sudo apt-get update -qq && sudo apt-get install -y mecab mecab-ipadic-utf8 libmecab-dev sudo
+
+    - name: Install mecab-ipadic-NEologd
+      run: git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git && cd mecab-ipadic-neologd && ./bin/install-mecab-ipadic-neologd -n -y
+
+    - name: Uninstall unnecessary library
+      run: sudo apt-get remove sudo
+
     - name: Run tests
       run: bundle exec rspec
+      env:
+        DICTIONARY_DIR: '/usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd'

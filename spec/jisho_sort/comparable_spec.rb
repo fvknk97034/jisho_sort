@@ -19,6 +19,19 @@ describe JishoSort::Sortable do
       end
     end
 
+    context 'when use special dictionary' do
+      let(:text1) { '福井駅' }
+      let(:text2) { '放出駅' }
+
+      it 'is expected to return number that has been jisho_sort_by by reading' do
+        expect(text1.compare_by_furigana(text2, dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq 1
+      end
+
+      it 'is expected to return number that has been jisho_sort_by by reading' do
+        expect(text2.compare_by_furigana(text1, dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq (-1)
+      end
+    end
+
     context 'when a invalid argument is passed' do
       let(:text1) { '花より団子' }
 

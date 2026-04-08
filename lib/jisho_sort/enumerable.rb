@@ -11,10 +11,10 @@ module Enumerable
   # @yieldparam b [String] The second string to compare.
   # @return [Array<String>] The sorted array.
   # @raise [ArgumentError] If no block is given and any element is not a String.
-  def jisho_sort(&block)
+  def jisho_sort(options = {}, &block)
     raise ArgumentError if block.nil? && !all? { |item| item.instance_of?(String) }
 
-    return sort { |a, b| a.compare_by_furigana(b) } if block.nil?
+    return sort { |a, b| a.compare_by_furigana(b, options) } if block.nil?
 
     sort(&block)
   end
@@ -26,9 +26,9 @@ module Enumerable
   # @yieldreturn [String] The string whose japanese pronunciation will be used for sorting.
   # @return [Array] A new array with the elements sorted by the japanese pronunciation of the strings.
   # @raise [ArgumentError] If any element does not yield a String.
-  def jisho_sort_by
+  def jisho_sort_by(options = {})
     raise ArgumentError unless all? { |item| yield(item).instance_of?(String) }
 
-    sort_by{ |item| yield(item).furigana }
+    sort_by { |item| yield(item).furigana(options) }
   end
 end

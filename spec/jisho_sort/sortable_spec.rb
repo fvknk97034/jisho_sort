@@ -14,7 +14,7 @@ describe JishoSort::Sortable do
           ]
         end
 
-        it 'is expected to return an array that has been jisho_sort_by by reading' do
+        it 'is expected to return an array that has been jisho_sort by reading' do
           expect(inputs.jisho_sort).to eq [
             '明日をも知れぬ身',
             'ありがとうございます',
@@ -26,6 +26,31 @@ describe JishoSort::Sortable do
 
         it 'is expected to be non-destructive' do
           inputs.jisho_sort
+          expect(inputs).to eq inputs
+        end
+      end
+
+      context 'when use a special dictionary' do
+        #  rubocop:disable Style/WordArray
+        let(:inputs) do
+          [
+            '福井駅',
+            '博多駅',
+            '放出駅'
+          ]
+        end
+
+        it 'is expected to return an array that has been jisho_sort by reading' do
+          expect(inputs.jisho_sort(dicdir: ENV.fetch('DICTIONARY_DIR'))).to eq [
+              '博多駅',
+              '放出駅',
+              '福井駅'
+          ]
+        end
+        #  rubocop:enable Style/WordArray
+
+        it 'is expected to be non-destructive' do
+          inputs.jisho_sort(dicdir: ENV.fetch('DICTIONARY_DIR'))
           expect(inputs).to eq inputs
         end
       end
@@ -61,7 +86,7 @@ describe JishoSort::Sortable do
           ]
         end
 
-        it 'is expected to return an array that has been jisho_sort_by by reading' do
+        it 'is expected to return an array that has been jisho_sort by reading' do
           expect(inputs.jisho_sort { |a, b| b.compare_by_furigana(a) }).to eq [
             '花より団子',
             'ハッピーバースデー',
@@ -73,6 +98,31 @@ describe JishoSort::Sortable do
 
         it 'is expected to be non-destructive' do
           inputs.jisho_sort { |a, b| b.compare_by_furigana(a) }
+          expect(inputs).to eq inputs
+        end
+      end
+
+      context 'when use a special dictionary' do
+        #  rubocop:disable Style/WordArray
+        let(:inputs) do
+          [
+            '福井駅',
+            '博多駅',
+            '放出駅'
+          ]
+        end
+
+        it 'is expected to return an array that has been jisho_sort by reading' do
+          expect(inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: ENV.fetch('DICTIONARY_DIR')) }).to eq [
+              '福井駅',
+              '放出駅',
+              '博多駅'
+          ]
+        end
+        #  rubocop:enable Style/WordArray
+
+        it 'is expected to be non-destructive' do
+          inputs.jisho_sort { |a, b| b.compare_by_furigana(a, dicdir: ENV.fetch('DICTIONARY_DIR')) }
           expect(inputs).to eq inputs
         end
       end
@@ -123,6 +173,31 @@ describe JishoSort::Sortable do
           expect(inputs).to eq inputs
         end
       end
+
+      context 'when use a special dictionary' do
+        #  rubocop:disable Style/WordArray
+        let(:inputs) do
+          [
+            { id: 1, name: '福井駅' },
+            { id: 2, name: '博多駅' },
+            { id: 3, name: '放出駅' }
+          ]
+        end
+
+        it 'is expected to return an array that has been jisho_sort_by by reading' do
+          expect(inputs.jisho_sort_by(dicdir: ENV.fetch('DICTIONARY_DIR')) { |i| i[:name] }).to eq [
+            { id: 2, name: '博多駅' },
+            { id: 3, name: '放出駅' },
+            { id: 1, name: '福井駅' }
+          ]
+        end
+        #  rubocop:enable Style/WordArray
+
+        it 'is expected to be non-destructive' do
+          inputs.jisho_sort_by(dicdir: ENV.fetch('DICTIONARY_DIR')) { |i| i[:name] }
+          expect(inputs).to eq inputs
+        end
+      end
     end
 
     context 'when a invalid argument is passed' do
@@ -154,7 +229,7 @@ describe JishoSort::Sortable do
           end
         end
 
-        it 'is expected to return an enumerator that has been jisho_sort_by by reading' do
+        it 'is expected to return an enumerator that has been jisho_sort by reading' do
           #  rubocop:disable Style/WordArray
           expect(inputs.jisho_sort).to eq [
             '明日をも知れぬ身',

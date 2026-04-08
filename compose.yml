@@ -2,5 +2,9 @@ services:
   app:
     build:
       context: .
+    environment:
+      DICTIONARY_DIR: '/usr/lib/aarch64-linux-gnu/mecab/dic/mecab-ipadic-neologd/'
     volumes:
       - .:/app
+    tty:
+      true
