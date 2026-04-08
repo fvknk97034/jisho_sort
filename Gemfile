@@ -11,5 +11,4 @@ gem 'ruby-lsp'
 
 gem 'solargraph', require: false
 
-gem 'ffi', '>= 1.9.0'
 gem 'natto'
