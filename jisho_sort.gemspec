@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name              = 'jisho_sort'
-  s.version           = '0.0.7'
+  s.version           = '0.0.8'
   s.summary           = 'Sort Japanese letters in dictionary order.'
   s.files             = Dir['{lib}/**/*.rb', 'bin/*', 'LICENSE', '*.md']
   s.require_path      = 'lib'
