@@ -1,0 +1,78 @@
+name: Test
+
+on:
+  push:
+    paths-ignore:
+      - '.vscode/**'
+      - 'sample/**'
+      - .gitignore
+      - .rubocop.yml
+      - compose.yml
+      - Dockerfile
+      - Gemfile
+      - Gemfile.lock
+      - LICENSE
+      - Rakefile
+      - README.md
+  pull_request:
+    paths-ignore:
+      - '.vscode/**'
+      - 'sample/**'
+      - .rubocop.yml
+      - .gitignore
+      - compose.yml
+      - Dockerfile
+      - Gemfile
+      - Gemfile.lock
+      - LICENSE
+      - Rakefile
+      - README.md
+
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.3.6', '3.4.2']
+
+    steps:
+    - uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e
+
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+
+    - name: Install MeCab
+      run: sudo apt-get update -qq && sudo apt-get install -y mecab mecab-ipadic-utf8 libmecab-dev
+
+    - name: Create neologd dic directory
+      run: |
+        sudo mkdir -p /usr/lib/x86_64-linux-gnu/mecab/dic
+        sudo chown $(whoami) /usr/lib/x86_64-linux-gnu/mecab/dic
+
+    - name: Cache mecab-ipadic-NEologd
+      id: cache-neologd
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      with:
+        path: /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd
+        key: neologd-${{ runner.os }}-v1
+
+    - name: Install Mecab & mecab-ipadic-NEologd
+      if: steps.cache-neologd.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get install -y sudo
+        git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
+        cd mecab-ipadic-neologd && ./bin/install-mecab-ipadic-neologd -n -y
+        sudo apt-get remove -y sudo
+
+    - name: Run tests
+      run: bundle exec rspec
+      env:
+        DICTIONARY_DIR: '/usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd'
