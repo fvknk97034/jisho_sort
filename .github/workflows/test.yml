@@ -28,6 +28,8 @@ on:
       - Rakefile
       - README.md
 
+  workflow_call:
+
 permissions:
   contents: read
 
@@ -40,19 +42,30 @@ jobs:
 
     steps:
     - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
     - name: Set up Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
+
     - name: Install MeCab
-      run: sudo apt-get update -qq && sudo apt-get install -y mecab mecab-ipadic-utf8 libmecab-dev sudo
+      run: sudo apt-get update -qq && sudo apt-get install -y mecab mecab-ipadic-utf8 libmecab-dev
 
-    - name: Install mecab-ipadic-NEologd
-      run: git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git && cd mecab-ipadic-neologd && ./bin/install-mecab-ipadic-neologd -n -y
+    - name: Cache mecab-ipadic-NEologd
+      id: cache-neologd
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      with:
+        path: /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd
+        key: neologd-${{ runner.os }}-v1
 
-    - name: Uninstall unnecessary library
-      run: sudo apt-get remove sudo
+    - name: Install Mecab & mecab-ipadic-NEologd
+      if: steps.cache-neologd.outputs.cache-hit != 'true'
+      run: |
+        sudo apt-get install -y sudo
+        git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
+        cd mecab-ipadic-neologd && ./bin/install-mecab-ipadic-neologd -n -y
+        sudo apt-get remove -y sudo
 
     - name: Run tests
       run: bundle exec rspec
