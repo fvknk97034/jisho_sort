@@ -9,8 +9,6 @@ on:
       - .rubocop.yml
       - compose.yml
       - Dockerfile
-      - Gemfile
-      - Gemfile.lock
       - LICENSE
       - Rakefile
       - README.md
@@ -22,8 +20,6 @@ on:
       - .gitignore
       - compose.yml
       - Dockerfile
-      - Gemfile
-      - Gemfile.lock
       - LICENSE
       - Rakefile
       - README.md
